@@ -68,11 +68,11 @@ As the naming suggests, they increase in complexity in each file. By doing a lot
 
 The commands that robot knows about are:
 
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
+* PLACE X,Y,F
+* MOVE
+* LEFT
+* RIGHT
+* REPORT
 
 #### Place
 
