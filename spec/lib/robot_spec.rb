@@ -10,13 +10,13 @@ describe Robot do
 
   it "can rotate left" do
     robot = Robot.new(1, 1, Compass.new(%w(NORTH EAST SOUTH WEST)))
-    robot.rotateLeft
+    robot.rotate_left
     expect(robot.location).to eql("1,1,WEST")
   end
 
   it "can rotate right" do
     robot = Robot.new(1, 1, Compass.new(%w(NORTH EAST SOUTH WEST)))
-    robot.rotateRight
+    robot.rotate_right
     expect(robot.location).to eql("1,1,EAST")
   end
 end

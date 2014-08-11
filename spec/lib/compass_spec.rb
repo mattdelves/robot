@@ -12,12 +12,12 @@ describe Compass do
   end
 
   it "can be rotated left" do
-    @compass.rotateLeft
+    @compass.rotate_left
     expect(@compass.orientation).to eql("baz")
   end
 
   it "can be rotated right" do
-    @compass.rotateRight
+    @compass.rotate_right
     expect(@compass.orientation).to eql("bar")
   end
   

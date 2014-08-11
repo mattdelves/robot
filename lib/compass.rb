@@ -4,11 +4,11 @@ class Compass
     @points = points
   end
 
-  def rotateLeft
+  def rotate_left
     @points.rotate!(-1)
   end
 
-  def rotateRight
+  def rotate_right
     @points.rotate!
   end
 

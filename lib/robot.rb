@@ -1,5 +1,7 @@
 class Robot
 
+  attr_reader :x, :y
+
   def initialize(x, y, compass)
     @x = x
     @y = y
@@ -12,14 +14,6 @@ class Robot
 
   def orientation
     @compass.orientation
-  end
-
-  def x
-    @x
-  end
-
-  def y
-    @y
   end
 
   def move
@@ -35,11 +29,11 @@ class Robot
     end
   end
 
-  def rotateLeft
-    @compass.rotateLeft
+  def rotate_left
+    @compass.rotate_left
   end
 
-  def rotateRight
-    @compass.rotateRight
+  def rotate_right
+    @compass.rotate_right
   end
 end

@@ -1,17 +1,12 @@
 class Board
+
+  attr_reader :width, :height
+
   def initialize(width = 5, height = 5)
     @width = width.to_i
     @height = height.to_i
   end
 
-  def width
-    @width
-  end
-
-  def height
-    @height
-  end
-    
   def execute(instruction)
     executed = false
 
@@ -20,18 +15,18 @@ class Board
       return true if @robot
     end
 
-    if instruction.eql?("MOVE") && isValidMove
+    if instruction.eql?("MOVE") && is_valid_move
       @robot.move
-      return true
+      executed = true
     elsif instruction.eql?("LEFT")
-      @robot.rotateLeft
-      return true
+      @robot.rotate_left
+      executed = true
     elsif instruction.eql?("RIGHT")
-      @robot.rotateRight
-      return true
+      @robot.rotate_right
+      executed = true
     elsif instruction.eql?("REPORT")
       puts @robot.location
-      return true
+      executed = true
     end
 
     executed
@@ -41,7 +36,7 @@ class Board
     @robot.location if @robot
   end
 
-  def isValidMove
+  def is_valid_move
     case @robot.orientation
     when "NORTH"
       return true if @robot.y < @height - 1
