@@ -2,6 +2,7 @@ require 'rspec/core/rake_task'
 
 require_relative './lib/robot'
 require_relative './lib/board'
+require_relative './lib/compass'
 require_relative './lib/play'
 
 RSpec::Core::RakeTask.new(:spec)
