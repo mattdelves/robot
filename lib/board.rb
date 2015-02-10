@@ -49,14 +49,18 @@ class Board
 
   def place(instruction)
     parts = instruction.match /PLACE (?<x>\d+),(?<y>\d+),(?<direction>(NORTH|SOUTH|EAST|WEST))/
-    directions = %w(NORTH EAST SOUTH WEST)
-    while !directions[0].eql?(parts[:direction])
-      directions.rotate!
-    end
+    directions = directions_starting_at(parts[:direction])
     compass = Compass.new(directions)
     @robot = Robot.new(parts[:x].to_i, parts[:y].to_i, compass)
-
     @robot != nil
+  end
+
+  def directions_starting_at(direction = "NORTH")
+    directions = %w(NORTH EAST SOUTH WEST)
+    while !directions[0].eql?(direction)
+      directions.rotate!
+    end
+    directions
   end
 
 end
