@@ -10,21 +10,16 @@ class Board
   def execute(instruction)
     executed = false
 
-    if instruction.start_with?("PLACE")
-      place(instruction)
-      return true if @robot
-    end
-
-    if instruction.eql?("MOVE") && is_valid_move
-      @robot.move
-      executed = true
-    elsif instruction.eql?("LEFT")
-      @robot.rotate_left
-      executed = true
-    elsif instruction.eql?("RIGHT")
-      @robot.rotate_right
-      executed = true
-    elsif instruction.eql?("REPORT")
+    case /^(?<command>(PLACE|MOVE|LEFT|RIGHT|REPORT))/.match(instruction)[:command]
+    when "PLACE"
+      executed = place(instruction)
+    when "MOVE"
+      executed = @robot.move if is_valid_move
+    when "LEFT"
+      executed = @robot.rotate_left
+    when "RIGHT"
+      executed = @robot.rotate_right
+    when "REPORT"
       puts @robot.location
       executed = true
     end
@@ -37,28 +32,35 @@ class Board
   end
 
   def is_valid_move
+    valid = false
     case @robot.orientation
     when "NORTH"
-      return true if @robot.y < @height - 1
+      valid = @robot.y < @height - 1
     when "EAST"
-      return true if @robot.x < @width - 1
+      valid = @robot.x < @width - 1
     when "SOUTH"
-      return true if @robot.y > 0
+      valid = @robot.y > 0
     when "WEST"
-      return true if @robot.x > 0
+      valid = @robot.x > 0
     end
 
-    return false
+    valid
   end
 
   def place(instruction)
     parts = instruction.match /PLACE (?<x>\d+),(?<y>\d+),(?<direction>(NORTH|SOUTH|EAST|WEST))/
-    directions = %w(NORTH EAST SOUTH WEST)
-    while !directions[0].eql?(parts[:direction])
-      directions.rotate!
-    end
+    directions = directions_starting_at(parts[:direction])
     compass = Compass.new(directions)
     @robot = Robot.new(parts[:x].to_i, parts[:y].to_i, compass)
+    @robot != nil
+  end
+
+  def directions_starting_at(direction = "NORTH")
+    directions = %w(NORTH EAST SOUTH WEST)
+    while !directions[0].eql?(direction)
+      directions.rotate!
+    end
+    directions
   end
 
 end
